@@ -34,8 +34,28 @@ public class MovieRatingsApplicationTests {
 	}
 
 	@Test
+	public void addMovieWithoutCategory() throws Exception {
+		MovieDto movie = new MovieDto("CatchMovie", null, "4.5");
+		ResponseEntityDto dto = movieService.addNewMovie(movie);
+		Assert.assertEquals(dto.getCode(), HttpStatus.BAD_REQUEST.value());
+	}
+
+	@Test
+	public void addMovieWithWringRating() throws Exception {
+		MovieDto movie = new MovieDto("CatchMovie", 1L, "9");
+		ResponseEntityDto dto = movieService.addNewMovie(movie);
+		Assert.assertEquals(dto.getCode(), HttpStatus.BAD_REQUEST.value());
+	}
+
+	@Test
 	public void getMovie() throws Exception {
 		ResponseEntityDto dto = movieService.getMovieById(1L);
+		Assert.assertEquals(dto.getCode(), HttpStatus.OK.value());
+	}
+	
+	@Test
+	public void getMovieWithWrongId() throws Exception {
+		ResponseEntityDto dto = movieService.getMovieById(300L);
 		Assert.assertEquals(dto.getCode(), HttpStatus.OK.value());
 	}
 
@@ -47,10 +67,23 @@ public class MovieRatingsApplicationTests {
 	}
 
 	@Test
+	public void updateMovieWithWringCategory() throws Exception {
+		MovieDto movie = new MovieDto(1L, "Update Movie", null, "4.6");
+		ResponseEntityDto dto = movieService.updateMovie(movie);
+		Assert.assertEquals(dto.getCode(), HttpStatus.BAD_REQUEST.value());
+	}
+
+	@Test
+	public void updateMovieWithWrongId() throws Exception {
+		MovieDto movie = new MovieDto(300L, "Update Movie", 1L, "4.6");
+		ResponseEntityDto dto = movieService.updateMovie(movie);
+		Assert.assertEquals(dto.getCode(), HttpStatus.NOT_FOUND.value());
+	}
+
+	@Test
 	public void getAllMovies() throws Exception {
 		ResponseEntityDto dto = movieService.getAllMovies();
 		Assert.assertEquals(dto.getCode(), HttpStatus.OK.value());
-
 	}
 
 	@Test

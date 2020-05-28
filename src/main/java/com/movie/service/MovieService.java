@@ -164,7 +164,7 @@ public class MovieService {
 			return new ResponseEntityDto(HttpStatus.OK.value(), HttpStatus.OK.name(), "Movie Updated Successfully",
 					updatemovie);
 		} else {
-			return new ResponseEntityDto(HttpStatus.BAD_REQUEST.value(), HttpStatus.BAD_REQUEST.name(),
+			return new ResponseEntityDto(HttpStatus.NOT_FOUND.value(), HttpStatus.NOT_FOUND.name(),
 					"No movie record exist for given id");
 		}
 	}

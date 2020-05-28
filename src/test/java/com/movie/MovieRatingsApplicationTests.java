@@ -56,7 +56,7 @@ public class MovieRatingsApplicationTests {
 	@Test
 	public void getMovieWithWrongId() throws Exception {
 		ResponseEntityDto dto = movieService.getMovieById(300L);
-		Assert.assertEquals(dto.getCode(), HttpStatus.OK.value());
+		Assert.assertEquals(dto.getCode(), HttpStatus.NOT_FOUND.value());
 	}
 
 	@Test
